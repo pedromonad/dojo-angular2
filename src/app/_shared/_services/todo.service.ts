@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class TodoService{
     
-private url = 'http://localhost:3000/todo';
+private url = 'http://localhost:3000/todo/';
 private headers = new Headers({ 'Content-Type': 'application/json' });
 private options = new RequestOptions({ headers: this.headers });
 
@@ -26,6 +26,11 @@ private options = new RequestOptions({ headers: this.headers });
                     .map(this.extractData)
                     .catch(this.handleError);
                     
+  }
+
+  remove(todo: Todo)  {
+    return this.http.delete(this.url + todo.id, this.options)
+                    .catch(this.handleError);
   }
 
   private extractData(res: Response) {

@@ -73,7 +73,16 @@ export class TodoComponent implements OnInit {
   }
 
   deleteTodo(todo) {
-    
+    if(window.confirm("Are you sure you want to permanently delete this item?")) {
+      this._todoService.remove(todo).subscribe(
+        res => {
+          var pos = this.todos.map(client => { return client.id }).indexOf(todo.id);
+          this.todos.splice(pos, 1);
+          this.sendInfoMsg("item deleted successfully.", "success");
+        },
+        error => console.log(error)
+      );
+    }  
   }
 
   sendInfoMsg(body, type, time = 3000) {
