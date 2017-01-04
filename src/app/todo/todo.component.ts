@@ -69,7 +69,14 @@ export class TodoComponent implements OnInit {
   }
 
   editTodo(todo) {
-    
+    this._todoService.update(todo).subscribe(
+      res => {
+        this.isEditing = false;
+        this.todo = todo;
+        this.sendInfoMsg("item edited successfully.", "success");
+      },
+      error => console.log(error)
+    );
   }
 
   deleteTodo(todo) {

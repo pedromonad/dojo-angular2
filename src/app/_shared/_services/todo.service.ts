@@ -28,6 +28,13 @@ private options = new RequestOptions({ headers: this.headers });
                     
   }
 
+  update(todo: Todo) {
+    const body = JSON.stringify(todo);
+    return this.http.put(this.url + todo.id, body, this.options)
+                    .map((res: Response) => res.json())
+                    .catch(this.handleError);
+  }
+
   remove(todo: Todo)  {
     return this.http.delete(this.url + todo.id, this.options)
                     .catch(this.handleError);
