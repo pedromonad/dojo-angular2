@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
 
+import { TodoService } from '../_shared/_services/todo.service';
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -21,7 +23,8 @@ export class TodoComponent implements OnInit {
   private infoMsg = { body: "", type: "info"};
 
   constructor(private http: Http,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private _todoService: TodoService) { }
 
   ngOnInit() {
     this.getTodos();
@@ -33,13 +36,23 @@ export class TodoComponent implements OnInit {
   }
 
   getTodos() {
-   
+    this._todoService.getAll().subscribe(
+      data => this.todos = data,
+      error => console.log(error),
+      () => this.isLoading = false
+    );
   }
 
   addTodo() {
-
-    console.log('haha');
-    
+    this._todoService.add(this.addTodoForm.value).subscribe(
+      res => {
+        let newTodo = res;
+        this.todos.push(newTodo);
+        this.addTodoForm.reset();
+        this.sendInfoMsg("item added successfully!!!", "success");
+      },
+      error => console.log(error)
+    );
   }
 
   enableEditing(todo) {
