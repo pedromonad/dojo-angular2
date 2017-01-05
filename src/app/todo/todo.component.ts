@@ -18,9 +18,9 @@ export class TodoComponent implements OnInit {
   private isEditing = false;
 
   private addTodoForm: FormGroup;
-  private name = new FormControl("", Validators.required);
-  
-  private infoMsg = { body: "", type: "info"};
+  private name = new FormControl('', Validators.required);
+  private cpf = new FormControl('', Validators.required);
+  private infoMsg = { body: '', type: 'info'};
 
   constructor(private http: Http,
               private formBuilder: FormBuilder,
@@ -30,7 +30,8 @@ export class TodoComponent implements OnInit {
     this.getTodos();
 
     this.addTodoForm = this.formBuilder.group({
-      name: this.name
+      name: this.name,
+      cpf: this.cpf
     });
 
   }
@@ -49,7 +50,7 @@ export class TodoComponent implements OnInit {
         let newTodo = res;
         this.todos.push(newTodo);
         this.addTodoForm.reset();
-        this.sendInfoMsg("item added successfully!!!", "success");
+        this.sendInfoMsg('item added successfully!!!', 'success');
       },
       error => console.log(error)
     );
@@ -63,7 +64,7 @@ export class TodoComponent implements OnInit {
   cancelEditing() {
     this.isEditing = false;
     this.todo = {};
-    this.sendInfoMsg("item editing cancelled.", "warning");
+    this.sendInfoMsg('item editing cancelled.', 'warning');
     // reload the todos to reset the editing
     this.getTodos();
   }
@@ -73,29 +74,29 @@ export class TodoComponent implements OnInit {
       res => {
         this.isEditing = false;
         this.todo = todo;
-        this.sendInfoMsg("item edited successfully.", "success");
+        this.sendInfoMsg('item edited successfully.', 'success');
       },
       error => console.log(error)
     );
   }
 
   deleteTodo(todo) {
-    if(window.confirm("Are you sure you want to permanently delete this item?")) {
+    if(window.confirm('Are you sure you want to permanently delete this item?')) {
       this._todoService.remove(todo).subscribe(
         res => {
-          var pos = this.todos.map(client => { return client.id }).indexOf(todo.id);
+          let pos = this.todos.map(client => { return client.id }).indexOf(todo.id);
           this.todos.splice(pos, 1);
-          this.sendInfoMsg("item deleted successfully.", "success");
+          this.sendInfoMsg('item deleted successfully.', 'success');
         },
         error => console.log(error)
       );
-    }  
+    }
   }
 
   sendInfoMsg(body, type, time = 3000) {
     this.infoMsg.body = body;
     this.infoMsg.type = type;
-    window.setTimeout(() => this.infoMsg.body = "", time);
+    window.setTimeout(() => this.infoMsg.body = '', time);
   }
 
 }

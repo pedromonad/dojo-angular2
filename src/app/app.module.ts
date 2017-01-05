@@ -1,27 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { CommonModule }   from '@angular/common';
+import { TodoModule } from './todo/todo.module';
+import { SharedModule} from './_shared/shared.module';
 
 import { AppComponent } from './app.component';
-import { TodoComponent } from './todo/todo.component';
-import { TodoModule } from './todo/todo.module';
+import { AppRoutingModule } from './app-routing.module';
+import { ConfirmDirective } from './cpf/confirm.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfirmDirective
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    ReactiveFormsModule,
-    CommonModule,
-    RouterModule.forRoot([
-      { path: '', redirectTo: '/todo', pathMatch: 'full' }
-    ]),
+    SharedModule,
+    AppRoutingModule,
     TodoModule
   ],
   providers: [],

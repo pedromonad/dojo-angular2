@@ -8,6 +8,10 @@
           <input class="form-control" placeholder="Nome" name="name" formControlName="name" type="text" />
         </div>
         <div class="form-group">
+          <label for="name">CPF</label>
+          <input class="form-control" placeholder="CPF" name="cpf" formControlName="cpf" type="text" />
+        </div>
+        <div class="form-group">
           <button type="submit" name="submit" [disabled]="!addTodoForm.valid" class="btn">OK</button>
         </div>
       </form>
