@@ -4,7 +4,7 @@ import { Directive, HostListener, Input } from '@angular/core';
   selector: `[appConfirm]`
 })
 export class ConfirmDirective {
-  @Input() appConfirm = function() => {};
+  @Input() appConfirm = () => {};
   @Input() confirmMessage = 'Are you sure you want to do this?';
   @HostListener('click', ['$event'])
   confirmFirst() {
