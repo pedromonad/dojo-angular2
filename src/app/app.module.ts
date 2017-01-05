@@ -5,7 +5,7 @@ import { SharedModule} from './_shared/shared.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ConfirmDirective } from './cpf/confirm.directive';
+import { ConfirmDirective } from './_shared/_directives/confirm.directive';
 
 @NgModule({
   declarations: [
